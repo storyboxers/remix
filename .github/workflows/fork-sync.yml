@@ -4,23 +4,23 @@ on:
     - cron:  '0 */2 * * *'
   workflow_dispatch:
 jobs:
-  sync-dev:
+  sync-main:
     runs-on: ubuntu-latest
-    name: "Sync from remix-run/remix@dev"
+    name: "Sync from remix-run/remix@main"
     steps:
-    - name: "Checkout: dev"
+    - name: "Checkout: main"
       uses: actions/checkout@v2
       with:
-        ref: dev
+        ref: main
         token: ${{ github.token }}
-    - name: "Update: dev"
-      id: sync-dev
+    - name: "Update: main"
+      id: sync-main
       uses: mathieucarbou/Fork-Sync-With-Upstream-action@fork-sync
       with:
         domain: 'github.com'
         upstream_repository: remix-run/remix
-        upstream_branch: dev
-        target_branch: dev
+        upstream_branch: main
+        target_branch: main
         git_pull_args: --ff-only
         # git_push_args: --force
     - name: Timestamp
