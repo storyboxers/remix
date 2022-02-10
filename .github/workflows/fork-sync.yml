@@ -1,0 +1,27 @@
+name: "Fork Sync"
+on:
+  schedule:
+    - cron:  '0 */2 * * *'
+  workflow_dispatch:
+jobs:
+  sync-dev:
+    runs-on: ubuntu-latest
+    name: "Sync from remix-run/remix@dev"
+    steps:
+    - name: "Checkout: dev"
+      uses: actions/checkout@v2
+      with:
+        ref: dev
+        token: ${{ github.token }}
+    - name: "Update: dev"
+      id: sync-dev
+      uses: mathieucarbou/Fork-Sync-With-Upstream-action@fork-sync
+      with:
+        domain: 'github.com'
+        upstream_repository: remix-run/remix
+        upstream_branch: dev
+        target_branch: dev
+        git_pull_args: --ff-only
+        # git_push_args: --force
+    - name: Timestamp
+      run: date
