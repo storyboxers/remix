@@ -54,7 +54,8 @@ export async function getRouteModuleExports(
     metafile: true,
     write: false,
     logLevel: "silent",
-    plugins: [mdxPlugin(config)]
+    plugins: [mdxPlugin(config)],
+    mainFields: ["esbuild", "browser", "module", "main"]
   });
   let metafile = result.metafile!;
 
